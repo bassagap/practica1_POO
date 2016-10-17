@@ -23,20 +23,42 @@ public class Agent {
     
 
 //Contructor
-    public Agent (int x, int y, double radius, double weight, int id){
+    public Agent (Vec2D pos, Vec2D obj, double radius, int id){
         this.speed = new Vec2D(x, y);
         this.maxSpeed = new Vec2D(x, y);
-        this.pos = new Vec2D(x, y);
-        this.dir = new Vec2D(x, y);
-        this.obj = new Vec2D(x, y);
+        this.pos = pos;
+        this.obj = obj;
         this.radius = radius;
-        this.weight = weight;
         this.id = id;
     }
     // Methods:
     public double getRadius() {
         return this.radius;
     }
+    public Vec2D getPos(){
+        return this.pos;
+    }
+    public Vec2D getDir(){
+        return this.dir;
+    }
+    public Vec2D getObj(){
+        return this.obj;
+    }
+    public void setPos (Vec2D vector){
+        this.pos=vector;
+    }
+    public void setObj (Vec2D vector){
+        this.obj=vector;
+    }
+    public void setDir (Vec2D vector){
+        this.dir=vector;
+    }
+    public Vec2D getDirToObj(){
+        Vec2D vector = new Vec2D(0,0);
+        return vector; 
+    }
+    
+    
     
     
     
