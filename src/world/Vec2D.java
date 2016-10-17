@@ -13,11 +13,11 @@ public class Vec2D {
    private double x; 
    private double y;
    
-   Vec2D(double x_, double y_) { x = x_; y = y_; }
-   void setX( double x_ ) { x = x_;}
-   void setY( double y_ ) { y = y_;}
-   double getX() { return x;}
-   double getY() { return y;}   
+   public Vec2D(double x_, double y_) { x = x_; y = y_; }
+   public void setX( double x_ ) { x = x_;}
+   public void setY( double y_ ) { y = y_;}
+   public  double getX() { return x;}
+   public double getY() { return y;}   
    
    void sum(Vec2D v) { x += v.getX(); y += v.getY(); }
    void minus(Vec2D v) { x -= v.getX(); y -= v.getY(); }
@@ -32,13 +32,13 @@ public class Vec2D {
    }
    
    
-   void turn( double angle ) {
+   public void turn( double angle ) {
        double xrot = x*Math.cos(angle) - y*Math.sin(angle);
        y = x*Math.sin(angle) + y*Math.cos(angle);
        x = xrot;
    }
 
-   double angle( Vec2D v ) {
+   public double angle( Vec2D v ) {
        	return Math.atan2( x*v.getY() - y*v.getY(), x*v.getX() + y*v.getY() );
    }
    

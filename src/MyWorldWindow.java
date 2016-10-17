@@ -1,3 +1,10 @@
+
+import java.awt.Color;
+import java.awt.Graphics;
+import world.Agent;
+import world.Vec2D;
+import world.World;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,10 +20,28 @@ public class MyWorldWindow extends javax.swing.JFrame {
     /**
      * Creates new form MyWorldWindow
      */
+    World w; 
     public MyWorldWindow() {
         initComponents();
+        w = new World();
+        setSize(w.getH(),w.getW());  
     }
 
+    public void paint ( Graphics g){
+        super.paint(g);
+        for(int i = 0; i < w.getNumAgents(); i++){
+            Agent agent = w.getAgent();
+            Vec2D position = agent.getPos();
+            Vec2D obj = agent.getObj();
+            
+            int w =(int) agent.getRadius();
+            g.setColor (Color.RED);
+            g.fillOval((int)(position.getX() -w),(int)(position.getY() - w), 2*w, 2*w);
+            g.setColor(Color.BLACK);
+            g.fillOval((int)(position.getX() -5),(int)(position.getY() - 5), 10, 10);                        
+        }
+                
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -107,6 +132,11 @@ public class MyWorldWindow extends javax.swing.JFrame {
                 new MyWorldWindow().setVisible(true);
             }
         });
+        
+        // Changes on Main()
+     
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

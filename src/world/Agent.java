@@ -52,12 +52,20 @@ public class Agent {
         this.dir=vector;
     }
     public Vec2D getDirToObj(){
-        Vec2D vector = new Vec2D(0,0);
+        Vec2D vector = this.obj;
+        vector.minus(this.pos);
+        vector.normalize();
         return vector; 
     }
-    
-    
-    
-    
-    
+ 
+    public void update() {    
+        this.pos.setX(this.pos.getX() + this.speed.getX()*this.dir.getX());
+        this.pos.setY(this.pos.getY() + this.speed.getY()*this.dir.getY());
+    }
+    public Boolean collisionWith() {
+        return true;
+    }
+    public String toString(){
+        return "void";   
+    }
 }
