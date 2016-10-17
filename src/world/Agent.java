@@ -24,8 +24,6 @@ public class Agent {
 
 //Contructor
     public Agent (Vec2D pos, Vec2D obj, double radius, int id){
-        this.speed = new Vec2D(x, y);
-        this.maxSpeed = new Vec2D(x, y);
         this.pos = pos;
         this.obj = obj;
         this.radius = radius;
