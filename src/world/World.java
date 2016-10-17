@@ -13,26 +13,26 @@ import world.Vec2D;
 public class World {
     private int width, height, screenMargin, numAgents;
     Agent[] agents;
-    int getW() {
+    public int getW() {
     }
-    int getH() {
+    public int getH() {
     }
-    int getNumAgents() {
+    public int getNumAgents() {
         
     }
-    Agent getAgent(){
+    public Agent getAgent(){
         
     }
-    Vec2D randomPointInsideWorld() {
+    public Vec2D randomPointInsideWorld() {
         
     }
-    void processCollisions(){
+    public void processCollisions(){
         
     }
-    void update() {
+    public void update() {
         
     }
-    void run(int steps) {
+    public void run(int steps) {
         
     }
 }

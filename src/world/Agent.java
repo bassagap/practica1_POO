@@ -37,7 +37,17 @@ public class Agent {
     public double getRadius() {
         return this.radius;
     }
-    
-    
+    public Vec2D getDirToObject() {
+        
+    }
+    public void update() {
+        
+    }
+    public Boolean collisionWith() {
+        
+    }
+    public String toString(){
+        
+    }
     
 }
