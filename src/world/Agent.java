@@ -62,8 +62,8 @@ public class Agent {
         this.pos.setX(this.pos.getX() + this.speed.getX()*this.dir.getX());
         this.pos.setY(this.pos.getY() + this.speed.getY()*this.dir.getY());
     }
-    public Boolean collisionWith() {
-        return true;
+    public Boolean collisionWith(Agent a) {
+        return (a.getPos().dist(this.getPos()) <= a.getRadius()+this.getRadius());
     }
     public String toString(){
         return "void";   
