@@ -57,7 +57,9 @@ public class Agent {
         vector.normalize();
         return vector; 
     }
- 
+    public Boolean objReached() {
+        return (obj.dist(pos) < 10);
+    }
     public void update() {    
         this.pos.setX(this.pos.getX() + this.speed.getX()*this.dir.getX());
         this.pos.setY(this.pos.getY() + this.speed.getY()*this.dir.getY());
@@ -66,6 +68,6 @@ public class Agent {
         return (a.getPos().dist(this.getPos()) <= a.getRadius()+this.getRadius());
     }
     public String toString(){
-        return "void";   
+        return "Agent { id: " + id + ", position: {" + pos.getX() + "," + pos.getY() + "}, objective: {" + obj.getX() + "," + obj.getY() + "}";   
     }
 }

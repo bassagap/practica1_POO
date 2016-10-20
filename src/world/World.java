@@ -50,10 +50,12 @@ public class World {
     public void update() {
         for(Agent a:agents) {
             a.update();
-            if(a.getObj() == a.getPos()) a.setObj(this.randomPointInsideWorld());
+            // Reset Objective if met
+            if(a.objReached()) a.setObj(this.randomPointInsideWorld());
+            a.getDir().turnTo(a.getDirToObj()); // Turn agent towards Objective
         }
     }
     public void run(int steps) {
-        
+        for(int i=0;i<steps;i++) update();
     }
 }
