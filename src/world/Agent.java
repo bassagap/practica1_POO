@@ -28,6 +28,11 @@ public class Agent {
         this.obj = obj;
         this.radius = radius;
         this.id = id;
+        this.speed = new Vec2D (1,1);
+        this.weight = this.radius * 2;
+        this.maxSpeed = new Vec2D (2,2);
+        this.dir = this.getDirToObj();
+
     }
     // Methods:
     public double getRadius() {
