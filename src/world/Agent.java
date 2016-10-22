@@ -70,7 +70,12 @@ public class Agent {
         this.pos.setY(this.pos.getY() + this.speed.getY()*this.dir.getY());
     }
     public Boolean collisionWith(Agent a) {
-        return (a.getPos().dist(this.getPos()) <= a.getRadius()+this.getRadius());
+        Boolean collided = false;
+        double sum = this.radius + a.getRadius();  
+        if(this.pos.dist(a.pos) < sum){
+            collided = true;
+        }    
+        return collided;
     }
     public String toString(){
         return "Agent { id: " + id + ", position: {" + pos.getX() + "," + pos.getY() + "}, objective: {" + obj.getX() + "," + obj.getY() + "}";   
