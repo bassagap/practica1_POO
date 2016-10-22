@@ -36,7 +36,6 @@ public class Vec2D {
        x = old_x * Math.cos( angle ) - old_y * Math.sin( angle );
        y = old_x * Math.sin( angle ) - old_y * Math.cos( angle );
    }
-
    double angle( Vec2D v ) {
        return Math.atan2( v.getY(), v.getX() ) - Math.atan2( y , x );
    }

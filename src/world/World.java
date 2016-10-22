@@ -41,8 +41,12 @@ public class World {
                 if(a.collisionWith(b)) {
                     Vec2D av = a.getDir();
                     Vec2D bv = b.getDir();
-                    a.getDir().turn(av.angle(bv));
-                    b.getDir().turn(bv.angle(av));
+                    // Rotation
+                    int aAngleCoeff = (av.angle(bv)>bv.angle(bv))?-1:1;
+                    double aRadiusCoeff = (a.getRadius()/b.getRadius());
+                    double angle = (av.angle(bv)+bv.angle(bv))/2;
+                    av.rotate(aAngleCoeff*(angle*aRadiusCoeff+180));
+                    bv.rotate((-1*aAngleCoeff)*(aRadiusCoeff+180));
                 }
             }
         }
