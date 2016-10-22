@@ -31,13 +31,13 @@ public class Vec2D {
    }
    
    
-   void rotate( double angle ) {
+   public void rotate( double angle ) {
        double old_x = x, old_y = y;
        x = old_x * Math.cos( angle ) - old_y * Math.sin( angle );
        y = old_x * Math.sin( angle ) - old_y * Math.cos( angle );
    }
 
-   double angle( Vec2D v ) {
+   public double angle( Vec2D v ) {
        return Math.atan2( v.getY(), v.getX() ) - Math.atan2( y , x );
    }
    

@@ -55,21 +55,19 @@ public class World {
     }
     public void update() {
         for(Agent a:agents) {
-//            Vec2D d = a.getDir();
-//            d.rotateInDirectionOf(a.getDirToObj());
-//            a.setPos(d);
-//            a.setDir(d);
-            a.update();
+            a.update();           
             // Reset Objective if met
             if(a.objReached()){
                 a.setObj(this.randomPointInsideWorld());
                 a.getDir().rotateInDirectionOf(a.getDirToObj()); // Turn agent towards Objective
             } 
- 
-            
+            }             
         }
-    }
     public void run(int steps) {
         for(int i=0;i<steps;i++) update();
     }
 }
+
+
+
+

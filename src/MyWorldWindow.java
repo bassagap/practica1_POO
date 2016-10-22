@@ -24,23 +24,37 @@ public class MyWorldWindow extends javax.swing.JFrame {
     public MyWorldWindow() {
         initComponents();
         w = new World();
-        setSize(w.getH(),w.getW());  
+        setSize(w.getH(),w.getW()); 
+        Agent a = new Agent(new Vec2D(1,1), new Vec2D(2,2), 30, 0);
+        System.out.println(a.toString());
+        
+        
     }
 
+    /**
+     *
+     * @param g
+     */
+    @Override
     public void paint ( Graphics g){
         super.paint(g);
+        w.run(10); 
         for(int i = 0; i < w.getNumAgents(); i++){
-            Agent agent = w.getAgent();
-            Vec2D position = agent.getPos();
-            Vec2D obj = agent.getObj();
-            
-            int w =(int) agent.getRadius();
+            for (int j = 0; j< w.getNumAgents(); j++){
+                Agent agent1 = w.getAgent(i);
+                Agent agent2 = w.getAgent(j);
+                if(agent1.collisionWith(agent2)){
+                    w.processCollisions();
+                }
+            Vec2D position = agent1.getPos();
+            Vec2D obj = agent1.getObj();      
+            int w =(int) agent1.getRadius();
             g.setColor (Color.RED);
             g.fillOval((int)(position.getX() -w),(int)(position.getY() - w), 2*w, 2*w);
             g.setColor(Color.BLACK);
-            g.fillOval((int)(position.getX() -5),(int)(position.getY() - 5), 10, 10);                        
-        }
-                
+            g.fillOval((int)(obj.getX() -5),(int)(obj.getY() - 5), 10, 10);  
+            }
+        }                                              
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -129,7 +143,7 @@ public class MyWorldWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MyWorldWindow().setVisible(true);
+            new MyWorldWindow().setVisible(true);
             }
         });
         
