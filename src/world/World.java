@@ -5,8 +5,6 @@
  */
 package world;
 import java.util.Random;
-
-       
 /**
  *
  * @author u124308
@@ -55,16 +53,17 @@ public class World {
     }
     public void update() {
         for(Agent a:agents) {
-            a.update();           
+            a.update();
             // Reset Objective if met
             if(a.objReached()){
                 a.setObj(this.randomPointInsideWorld());
                 a.getDir().rotateInDirectionOf(a.getDirToObj()); // Turn agent towards Objective
-            } 
-            }             
+            }
         }
+    }
+    
     public void run(int steps) {
-        for(int i=0;i<steps;i++) update();
+           for(int i=0;i<steps;i++) update();
     }
 }
 
