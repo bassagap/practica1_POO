@@ -5,6 +5,8 @@
  */
 package world;
 import java.util.Random;
+
+       
 /**
  *
  * @author u124308
@@ -18,6 +20,10 @@ public class World {
         screenMargin = 30;
         numAgents = 10;
         agents = new Agent[numAgents];
+        for ( int i = 0; i < numAgents; i++){
+            double randRad = 5 + Math.random()*(this.screenMargin/2); 
+            this.agents[i] = new Agent(this.randomPointInsideWorld(),this.randomPointInsideWorld(), randRad, 10);
+        };
     }
     public int getW() {
         return this.width;
@@ -28,8 +34,8 @@ public class World {
     public int getNumAgents() {
         return this.numAgents;
     }
-    public Agent getAgent(){
-        return this.agents[0]; 
+    public Agent getAgent(int i){
+        return this.agents[i]; 
     }
     public Vec2D randomPointInsideWorld() {
         Random random = new Random();
@@ -41,18 +47,26 @@ public class World {
                 if(a.collisionWith(b)) {
                     Vec2D av = a.getDir();
                     Vec2D bv = b.getDir();
-                    a.getDir().turn(av.angle(bv));
-                    b.getDir().turn(bv.angle(av));
+                    a.getDir().rotate(av.angle(bv));
+                    b.getDir().rotate(bv.angle(av));
                 }
             }
         }
     }
     public void update() {
         for(Agent a:agents) {
+//            Vec2D d = a.getDir();
+//            d.rotateInDirectionOf(a.getDirToObj());
+//            a.setPos(d);
+//            a.setDir(d);
             a.update();
             // Reset Objective if met
-            if(a.objReached()) a.setObj(this.randomPointInsideWorld());
-            a.getDir().turnTo(a.getDirToObj()); // Turn agent towards Objective
+            if(a.objReached()){
+                a.setObj(this.randomPointInsideWorld());
+                a.getDir().rotateInDirectionOf(a.getDirToObj()); // Turn agent towards Objective
+            } 
+ 
+            
         }
     }
     public void run(int steps) {

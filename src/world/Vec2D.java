@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+package world;
 /**
  *
  * @author martisanchez
@@ -12,11 +12,11 @@ public class Vec2D {
    private double y;
    
    Vec2D(){ x = y = 0.0; }
-   Vec2D(double x_, double y_) { x = x_; y = y_; }
+   public Vec2D(double x_, double y_) { x = x_; y = y_; }
    void setX( double x_ ) { x = x_;}
    void setY( double y_ ) { y = y_;}
-   double getX() { return x;}
-   double getY() { return y;}   
+   public double getX() { return x;}
+   public double getY() { return y;}   
    
    void sum(Vec2D v) { x += v.getX(); y += v.getY(); }
    void minus(Vec2D v) { x -= v.getX(); y -= v.getY(); }
@@ -47,7 +47,12 @@ public class Vec2D {
 
    }
    
-   public String toString() {
+    /**
+     *
+     * @return
+     */
+   @Override
+    public String toString() {
        return "(" + x + " " + y + ")";
    }
 }
