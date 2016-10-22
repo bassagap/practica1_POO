@@ -52,7 +52,7 @@ public class World {
             a.update();
             // Reset Objective if met
             if(a.objReached()) a.setObj(this.randomPointInsideWorld());
-            a.getDir().rotateInTheDirOf(a.getDirToObj()); // Turn agent towards Objective
+            a.getDir().rotateInDirectionOf(a.getDirToObj()); // Turn agent towards Objective
         }
     }
     public void run(int steps) {
