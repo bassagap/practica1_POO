@@ -38,11 +38,13 @@ public class World {
     }
     public Agent getAgent(int i){
         return this.agents[i]; 
-    }   
-    public void processCollisions(){
+    }
+    public int processCollisions(){
+        int coll = 0;
         for(Agent a:agents) {
             for(Agent b:agents) {
                 if(a.collisionWith(b)) {
+                    coll++;
                     Vec2D av = a.getDir();
                     Vec2D bv = b.getDir();
                     // Rotation
@@ -54,10 +56,9 @@ public class World {
                     a.setCollided(true); 
                     b.setCollided(true);
                 }
-                a.setCollided(false); 
-                b.setCollided(false);
             }
         }
+        return coll;
     }
     public void run(int steps) {
         for(int i=0;i<steps;i++) update();

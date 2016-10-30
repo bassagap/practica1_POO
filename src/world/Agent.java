@@ -112,7 +112,7 @@ public class Agent {
     public void setDir (Vec2D vector){
         this.dir=vector;
     }
-    public void setCollided ( boolean bool){
+    public void setCollided (boolean bool){
         this.collided = bool; 
     }
    
