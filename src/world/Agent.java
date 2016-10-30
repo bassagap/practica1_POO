@@ -72,7 +72,7 @@ public class Agent {
     public Boolean collisionWith(Agent a) {
         Boolean collided = false;
         double sum = this.radius + a.getRadius();  
-        if(this.pos.dist(a.pos) < sum){
+        if(this.pos.dist(a.pos) <= sum){
             collided = true;
         }    
         return collided;

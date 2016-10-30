@@ -40,21 +40,16 @@ public class MyWorldWindow extends javax.swing.JFrame {
         super.paint(g);
         w.run(10); 
         for(int i = 0; i < w.getNumAgents(); i++){
-            for (int j = 0; j< w.getNumAgents(); j++){
-                Agent agent1 = w.getAgent(i);
-                Agent agent2 = w.getAgent(j);
-                if(agent1.collisionWith(agent2)){
-                    w.processCollisions();
-                }
+            Agent agent1 = w.getAgent(i);
             Vec2D position = agent1.getPos();
             Vec2D obj = agent1.getObj();      
             int w =(int) agent1.getRadius();
             g.setColor (Color.RED);
             g.fillOval((int)(position.getX() -w),(int)(position.getY() - w), 2*w, 2*w);
             g.setColor(Color.BLACK);
-            g.fillOval((int)(obj.getX() -5),(int)(obj.getY() - 5), 10, 10);  
-            }
-        }                                              
+            g.fillOval((int)(obj.getX() -5),(int)(obj.getY() - 5), 10, 10);       
+        } 
+        w.processCollisions();
     }
     /**
      * This method is called from within the constructor to initialize the form.
