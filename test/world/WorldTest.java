@@ -43,12 +43,10 @@ public class WorldTest {
     @Test
     public void testGetW() {
         System.out.println("getW");
-        World instance = new World(10, 600, 200);
-        int expResult = 0;
-        int result = instance.getW();
+        World fakeWorld = new World(10, 600, 200);
+        int expResult = 600;
+        int result = fakeWorld.getW();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -57,12 +55,10 @@ public class WorldTest {
     @Test
     public void testGetH() {
         System.out.println("getH");
-        World instance = new World(10, 600, 200);
-        int expResult = 0;
-        int result = instance.getH();
+        World fakeWorld = new World(10, 600, 200);
+        int expResult = 200;
+        int result = fakeWorld.getH();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -71,12 +67,10 @@ public class WorldTest {
     @Test
     public void testGetNumAgents() {
         System.out.println("getNumAgents");
-        World instance = new World(10, 600, 200);
-        int expResult = 0;
-        int result = instance.getNumAgents();
+        World fakeWorld = new World(10, 600, 200);
+        int expResult = 10;
+        int result = fakeWorld.getNumAgents();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -86,12 +80,11 @@ public class WorldTest {
     public void testGetAgent() {
         System.out.println("getAgent");
         int i = 0;
-        World instance = new World(10, 600, 200);
-        Agent expResult = null;
-        Agent result = instance.getAgent(i);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        World fakeWorld = new World(10, 600, 200);
+        Agent agentsList[] = fakeWorld.agents; 
+        Agent agent = fakeWorld.getAgent(i);
+        assertEquals(agentsList[i].getPos().getX(), agent.getPos().getX(), 0.0);
+        assertEquals(agentsList[i].getPos().getY(), agent.getPos().getY(), 0.0);
     }
 
     /**
@@ -102,8 +95,7 @@ public class WorldTest {
         System.out.println("processCollisions");
         World instance = new World(10, 600, 200);
         instance.processCollisions();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**

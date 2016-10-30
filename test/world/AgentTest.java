@@ -172,6 +172,7 @@ public class AgentTest {
     @Test
     public void testUpdate() {
         System.out.println("update");
+        
 
     }
 
@@ -206,9 +207,9 @@ public class AgentTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        Agent instance = null;
-        String expResult = "";
-        String result = instance.toString();
+        Agent fakeAgent = new Agent(new Vec2D(300,300), new Vec2D(2,2),30.5, 2);
+        String expResult = "Agent { id: " + 2 + ", position: {" + new Vec2D(300,300).getX() + "," + new Vec2D(300,300).getY() + "}, objective: {" + new Vec2D(2,2).getX() + "," + new Vec2D(2,2).getY() + "}";  ;
+        String result = fakeAgent.toString();
         assertEquals(expResult, result);
 
     }

@@ -38,43 +38,44 @@ public class World {
     }
     public Agent getAgent(int i){
 <span class="fc" id="L40">        return this.agents[i]; </span>
-    }   
-    public void processCollisions(){
-<span class="fc bfc" id="L43" title="All 2 branches covered.">        for(Agent a:agents) {</span>
-<span class="fc bfc" id="L44" title="All 2 branches covered.">            for(Agent b:agents) {</span>
-<span class="fc bfc" id="L45" title="All 2 branches covered.">                if(a.collisionWith(b)) {</span>
-<span class="fc" id="L46">                    Vec2D av = a.getDir();</span>
-<span class="fc" id="L47">                    Vec2D bv = b.getDir();</span>
+    }
+    public int processCollisions(){
+<span class="fc" id="L43">        int coll = 0;</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        for(Agent a:agents) {</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">            for(Agent b:agents) {</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">                if(a.collisionWith(b)) {</span>
+<span class="fc" id="L47">                    coll++;</span>
+<span class="fc" id="L48">                    Vec2D av = a.getDir();</span>
+<span class="fc" id="L49">                    Vec2D bv = b.getDir();</span>
                     // Rotation
-<span class="fc bfc" id="L49" title="All 2 branches covered.">                    int aAngleCoeff = (av.angle(bv)&gt;bv.angle(bv))?-1:1;</span>
-<span class="fc" id="L50">                    double aRadiusCoeff = (a.getRadius()/b.getRadius());</span>
-<span class="fc" id="L51">                    double angle = (av.angle(bv)+bv.angle(bv))/2;</span>
-<span class="fc" id="L52">                    av.rotate(aAngleCoeff*(angle*aRadiusCoeff+180));</span>
-<span class="fc" id="L53">                    bv.rotate((-1*aAngleCoeff)*(aRadiusCoeff+180));</span>
-<span class="fc" id="L54">                    a.setCollided(true); </span>
-<span class="fc" id="L55">                    b.setCollided(true);</span>
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">                    int aAngleCoeff = (av.angle(bv)&gt;bv.angle(bv))?-1:1;</span>
+<span class="fc" id="L52">                    double aRadiusCoeff = (a.getRadius()/b.getRadius());</span>
+<span class="fc" id="L53">                    double angle = (av.angle(bv)+bv.angle(bv))/2;</span>
+<span class="fc" id="L54">                    av.rotate(aAngleCoeff*(angle*aRadiusCoeff+180));</span>
+<span class="fc" id="L55">                    bv.rotate((-1*aAngleCoeff)*(aRadiusCoeff+180));</span>
+<span class="fc" id="L56">                    a.setCollided(true); </span>
+<span class="fc" id="L57">                    b.setCollided(true);</span>
                 }
-<span class="fc" id="L57">                a.setCollided(false); </span>
-<span class="fc" id="L58">                b.setCollided(false);</span>
             }
         }
-<span class="fc" id="L61">    }</span>
+<span class="fc" id="L61">        return coll;</span>
+    }
     public void run(int steps) {
-<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        for(int i=0;i&lt;steps;i++) update();</span>
-<span class="fc" id="L64">    }</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        for(int i=0;i&lt;steps;i++) update();</span>
+<span class="fc" id="L65">    }</span>
     
     //Methods only used on World class and that will be by definition only used by World class therefore private. 
     private void update() {
-<span class="nc bnc" id="L68" title="All 2 branches missed.">        for(Agent a:agents) {</span>
-<span class="nc" id="L69">            a.update();</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        for(Agent a:agents) {</span>
+<span class="nc" id="L70">            a.update();</span>
             // Reset Objective if met
-<span class="nc bnc" id="L71" title="All 2 branches missed.">            if(a.objReached()) a.setObj(this.randomPointInsideWorld());</span>
-<span class="nc" id="L72">            a.getDir().rotateInDirectionOf(a.getDirToObj()); // Turn agent towards Objective</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">            if(a.objReached()) a.setObj(this.randomPointInsideWorld());</span>
+<span class="nc" id="L73">            a.getDir().rotateInDirectionOf(a.getDirToObj()); // Turn agent towards Objective</span>
         }
-<span class="nc" id="L74">    }</span>
+<span class="nc" id="L75">    }</span>
     private Vec2D randomPointInsideWorld() {
-<span class="fc" id="L76">        Random random = new Random();</span>
-<span class="fc" id="L77">        return new Vec2D(random.nextInt(width-screenMargin/2)+screenMargin,random.nextInt(height-screenMargin/2)+screenMargin); </span>
+<span class="fc" id="L77">        Random random = new Random();</span>
+<span class="fc" id="L78">        return new Vec2D(random.nextInt(width-screenMargin/2)+screenMargin,random.nextInt(height-screenMargin/2)+screenMargin); </span>
     }
     
 }
