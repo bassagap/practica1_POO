@@ -24,11 +24,7 @@ public class MyWorldWindow extends javax.swing.JFrame {
     public MyWorldWindow() {
         initComponents();
         w = new World();
-        setSize(w.getH(),w.getW()); 
-        Agent a = new Agent(new Vec2D(1,1), new Vec2D(2,2), 30, 0);
-        System.out.println(a.toString());
-        
-        
+        setSize(w.getH(),w.getW());       
     }
 
     /**
@@ -38,18 +34,30 @@ public class MyWorldWindow extends javax.swing.JFrame {
     @Override
     public void paint ( Graphics g){
         super.paint(g);
-        w.run(10); 
+        w.run(50); 
         for(int i = 0; i < w.getNumAgents(); i++){
             Agent agent1 = w.getAgent(i);
             Vec2D position = agent1.getPos();
-            Vec2D obj = agent1.getObj();      
+            Vec2D obj = agent1.getObj();
             int w =(int) agent1.getRadius();
-            g.setColor (Color.RED);
-            g.fillOval((int)(position.getX() -w),(int)(position.getY() - w), 2*w, 2*w);
+            if(agent1.getCollided()){
+                g.setColor (Color.BLUE);
+                g.fillOval((int)(position.getX() -w),(int)(position.getY() - w), 2*w, 2*w);
+            }
+            else{
+                g.setColor (Color.RED);
+                g.fillOval((int)(position.getX() -w),(int)(position.getY() - w), 2*w, 2*w);
+            }
             g.setColor(Color.BLACK);
-            g.fillOval((int)(obj.getX() -5),(int)(obj.getY() - 5), 10, 10);       
+            g.fillOval((int)(obj.getX() -5),(int)(obj.getY() - 5), 10, 10);
+            
+            
+
         } 
         w.processCollisions();
+        
+        
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -62,8 +70,12 @@ public class MyWorldWindow extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setEnabled(false);
 
         jButton1.setText("Step");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -72,20 +84,31 @@ public class MyWorldWindow extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Collisions");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addContainerGap(313, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jButton1)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1))
                 .addContainerGap(255, Short.MAX_VALUE))
         );
 
@@ -150,6 +173,8 @@ public class MyWorldWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JProgressBar jProgressBar1;
     // End of variables declaration//GEN-END:variables
 }
