@@ -29,7 +29,7 @@ public class MyWorldWindow extends javax.swing.JFrame {
      */
     World w;
     Boolean running;
-    int worldWidth = 800,worldHeight = 600, worldNAgents = 20,animationSpeed=3,animationLatencyRate=10;
+    int worldWidth = 800,worldHeight = 600, worldNAgents = 20,animationSpeed=3,animationLatencyRate=30;
     public MyWorldWindow() {
         //ColorUIResource colorResource = new ColorUIResource(Color.black);
         //UIManager.put("nimbusOrange",colorResource);
@@ -332,7 +332,7 @@ public class MyWorldWindow extends javax.swing.JFrame {
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
-        animationLatencyRate=20;
+        animationLatencyRate=30;
         animationSpeed=3;
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
