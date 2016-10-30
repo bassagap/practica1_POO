@@ -20,9 +20,18 @@ public class Agent {
     private double radius;
     private double weight;
     private int id;
+    private boolean collided = false; 
     
 
-//Contructor
+    //Contructor
+
+    /**
+     *
+     * @param pos
+     * @param obj
+     * @param radius
+     * @param id
+     */
     public Agent (Vec2D pos, Vec2D obj, double radius, int id){
         this.pos = pos;
         this.obj = obj;
@@ -35,40 +44,101 @@ public class Agent {
 
     }
     // Methods:
+    /**
+     *
+     * @return
+     */
     public double getRadius() {
         return this.radius;
     }
+
+    /**
+     *
+     * @return
+     */
     public Vec2D getPos(){
         return this.pos;
     }
+
+    /**
+     *
+     * @return
+     */
     public Vec2D getDir(){
         return this.dir;
     }
+
+    /**
+     *
+     * @return
+     */
     public Vec2D getObj(){
         return this.obj;
     }
-    public void setPos (Vec2D vector){
-        this.pos=vector;
-    }
-    public void setObj (Vec2D vector){
-        this.obj=vector;
-    }
-    public void setDir (Vec2D vector){
-        this.dir=vector;
-    }
+ /**
+     *
+     * @return
+     */
     public Vec2D getDirToObj(){
-        Vec2D vector = this.obj;
-        vector.minus(this.pos);
+        Vec2D vector = new Vec2D(this.getObj().getX(), this.getObj().getY());
+        vector.minus(this.getPos());
         vector.normalize();
         return vector; 
     }
+    
+    public boolean getCollided(){
+        return this.collided; 
+    }
+    /**
+     *
+     * @param vector
+     */
+    public void setPos (Vec2D vector){
+        this.pos=vector;
+    }
+
+    /**
+     *
+     * @param vector
+     */
+    public void setObj (Vec2D vector){
+        this.obj=vector;
+    }
+
+    /**
+     *
+     * @param vector
+     */
+    public void setDir (Vec2D vector){
+        this.dir=vector;
+    }
+    public void setCollided ( boolean bool){
+        this.collided = bool; 
+    }
+   
+
+    /**
+     *
+     * @return
+     */
     public Boolean objReached() {
         return (obj.dist(pos) < 10);
     }
+
+    /**
+     *
+     */
     public void update() {    
         this.pos.setX(this.pos.getX() + this.speed.getX()*this.dir.getX());
         this.pos.setY(this.pos.getY() + this.speed.getY()*this.dir.getY());
+        
     }
+
+    /**
+     *
+     * @param a
+     * @return
+     */
     public Boolean collisionWith(Agent a) {
         Boolean collided = false;
         double sum = this.radius + a.getRadius();  
@@ -77,6 +147,11 @@ public class Agent {
         }    
         return collided;
     }
+
+    /**
+     *
+     * @return
+     */
     public String toString(){
         return "Agent { id: " + id + ", position: {" + pos.getX() + "," + pos.getY() + "}, objective: {" + obj.getX() + "," + obj.getY() + "}";   
     }
