@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Agent.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;AgentWorldGUI&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">world</a> &gt; <span class="el_source">Agent.java</span></div><h1>Agent.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package world;
+
+/**
+ *
+ * @author u124308
+ */
+public class Agent {
+    // Properties:
+    
+    private Vec2D speed;
+    private Vec2D maxSpeed;
+    private Vec2D pos;
+    private Vec2D dir;
+    private Vec2D obj;
+    private double radius;
+    private double weight;
+    private int id;
+<span class="fc" id="L23">    private boolean collided = false; </span>
+    
+
+    //Contructor
+
+    /**
+     *
+     * @param pos
+     * @param obj
+     * @param radius
+     * @param id
+     */
+<span class="fc" id="L35">    public Agent (Vec2D pos, Vec2D obj, double radius, int id){</span>
+<span class="fc" id="L36">        this.pos = pos;</span>
+<span class="fc" id="L37">        this.obj = obj;</span>
+<span class="fc" id="L38">        this.radius = radius;</span>
+<span class="fc" id="L39">        this.id = id;</span>
+<span class="fc" id="L40">        this.speed = new Vec2D (1,1);</span>
+<span class="fc" id="L41">        this.weight = this.radius * 2;</span>
+<span class="fc" id="L42">        this.maxSpeed = new Vec2D (2,2);</span>
+<span class="fc" id="L43">        this.dir = this.getDirToObj();</span>
+
+<span class="fc" id="L45">    }</span>
+    // Methods:
+    /**
+     *
+     * @return
+     */
+    public double getRadius() {
+<span class="fc" id="L52">        return this.radius;</span>
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Vec2D getPos(){
+<span class="fc" id="L60">        return this.pos;</span>
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Vec2D getDir(){
+<span class="fc" id="L68">        return this.dir;</span>
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Vec2D getObj(){
+<span class="fc" id="L76">        return this.obj;</span>
+    }
+ /**
+     *
+     * @return
+     */
+    public Vec2D getDirToObj(){
+<span class="fc" id="L83">        Vec2D vector = new Vec2D(this.getObj().getX(), this.getObj().getY());</span>
+<span class="fc" id="L84">        vector.minus(this.getPos());</span>
+<span class="fc" id="L85">        vector.normalize();</span>
+<span class="fc" id="L86">        return vector; </span>
+    }
+    
+    public boolean getCollided(){
+<span class="nc" id="L90">        return this.collided; </span>
+    }
+    /**
+     *
+     * @param vector
+     */
+    public void setPos (Vec2D vector){
+<span class="fc" id="L97">        this.pos=vector;</span>
+<span class="fc" id="L98">    }</span>
+
+    /**
+     *
+     * @param vector
+     */
+    public void setObj (Vec2D vector){
+<span class="fc" id="L105">        this.obj=vector;</span>
+<span class="fc" id="L106">    }</span>
+
+    /**
+     *
+     * @param vector
+     */
+    public void setDir (Vec2D vector){
+<span class="fc" id="L113">        this.dir=vector;</span>
+<span class="fc" id="L114">    }</span>
+    public void setCollided ( boolean bool){
+<span class="fc" id="L116">        this.collided = bool; </span>
+<span class="fc" id="L117">    }</span>
+   
+
+    /**
+     *
+     * @return
+     */
+    public Boolean objReached() {
+<span class="fc bfc" id="L125" title="All 2 branches covered.">        return (obj.dist(pos) &lt; 10);</span>
+    }
+
+    /**
+     *
+     */
+    public void update() {    
+<span class="nc" id="L132">        this.pos.setX(this.pos.getX() + this.speed.getX()*this.dir.getX());</span>
+<span class="nc" id="L133">        this.pos.setY(this.pos.getY() + this.speed.getY()*this.dir.getY());</span>
+        
+<span class="nc" id="L135">    }</span>
+
+    /**
+     *
+     * @param a
+     * @return
+     */
+    public Boolean collisionWith(Agent a) {
+<span class="fc" id="L143">        Boolean collided = false;</span>
+<span class="fc" id="L144">        double sum = this.radius + a.getRadius();  </span>
+<span class="fc bfc" id="L145" title="All 2 branches covered.">        if(this.pos.dist(a.pos) &lt;= sum){</span>
+<span class="fc" id="L146">            collided = true;</span>
+        }    
+<span class="fc" id="L148">        return collided;</span>
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String toString(){
+<span class="fc" id="L156">        return &quot;Agent { id: &quot; + id + &quot;, position: {&quot; + pos.getX() + &quot;,&quot; + pos.getY() + &quot;}, objective: {&quot; + obj.getX() + &quot;,&quot; + obj.getY() + &quot;}&quot;;   </span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

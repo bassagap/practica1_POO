@@ -135,12 +135,12 @@ public class AgentTest {
     @Test
     public void testGetDirToObj() {
         System.out.println("getDirToObj");
-        Agent instance = null;
-        Vec2D expResult = null;
-        Vec2D result = instance.getDirToObj();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Agent fakeAgent1 = new Agent (new Vec2D(1.0,1.0), new Vec2D(2,2),30.5, 2);
+        Agent fakeAgent2 = new Agent (new Vec2D(1.0,1.0), new Vec2D(2,2),30.5, 2);
+        Vec2D vector1 = fakeAgent1.getDirToObj();
+        Vec2D vector2 = fakeAgent2.getDir();
+        assertEquals(vector1.getX(), vector2.getX(), 0.0);
+        assertEquals(vector1.getY(), vector2.getY(), 0.0);
     }
 
     /**
@@ -149,24 +149,30 @@ public class AgentTest {
     @Test
     public void testObjReached() {
         System.out.println("objReached");
-        Agent instance = null;
-        Boolean expResult = null;
-        Boolean result = instance.objReached();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Agent fakeAgent = new Agent(new Vec2D(300,300), new Vec2D(2,2),30.5, 2);
+        fakeAgent.setObj(new Vec2D(300, 300));
+        Boolean expResult = fakeAgent.objReached();
+        assertTrue(expResult);
     }
-
+    
+    /**
+     * Test of objReached method, of class Agent for non reaching the objective.
+     */
+    @Test
+    public void testObjNotReached() {
+        System.out.println("objNotReached");
+        Agent fakeAgent = new Agent(new Vec2D(300,300), new Vec2D(2,2),30.5, 2);
+        fakeAgent.setObj(new Vec2D(200, 200));
+        Boolean expResult = fakeAgent.objReached();
+        assertFalse(expResult);
+    }
     /**
      * Test of update method, of class Agent.
      */
     @Test
     public void testUpdate() {
         System.out.println("update");
-        Agent instance = null;
-        instance.update();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -175,13 +181,23 @@ public class AgentTest {
     @Test
     public void testCollisionWith() {
         System.out.println("collisionWith");
-        Agent a = null;
-        Agent instance = null;
-        Boolean expResult = null;
-        Boolean result = instance.collisionWith(a);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Agent fakeAgent1 = new Agent(new Vec2D(300,300), new Vec2D(2,2),30.5, 2);
+        Agent fakeAgent2 = new Agent(new Vec2D(300,300), new Vec2D(2,2),30.5, 2);
+        Boolean expResult = fakeAgent1.collisionWith(fakeAgent2);
+        assertTrue(expResult);
+
+    }
+        /**
+     * Test of collisionWith method, of class Agent. Not colliding
+     */
+    @Test
+    public void testNotCollisionWith() {
+        System.out.println("Not collisionWith");
+        Agent fakeAgent1 = new Agent(new Vec2D(300,300), new Vec2D(2,2),30.5, 2);
+        Agent fakeAgent2 = new Agent(new Vec2D(400,400), new Vec2D(1,2),30.5, 2);
+        Boolean expResult = fakeAgent1.collisionWith(fakeAgent2);
+        assertFalse(expResult);
+
     }
 
     /**
@@ -194,8 +210,7 @@ public class AgentTest {
         String expResult = "";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
     
 }
