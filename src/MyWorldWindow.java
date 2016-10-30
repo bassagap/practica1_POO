@@ -27,7 +27,7 @@ public class MyWorldWindow extends javax.swing.JFrame {
      */
     World w;
     Boolean running;
-    int worldWidth = 800,worldHeight = 600, worldNAgents = 20;
+    int worldWidth = 800,worldHeight = 600, worldNAgents = 20,animationSpeed=3;
     public MyWorldWindow() {
         initComponents();
         initWorld();
@@ -83,11 +83,13 @@ public class MyWorldWindow extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -147,15 +149,7 @@ public class MyWorldWindow extends javax.swing.JFrame {
                 .addContainerGap(303, Short.MAX_VALUE))
         );
 
-        jMenu1.setText("Settings");
-
-        jMenuItem5.setText("Reset Settings");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem5);
+        jMenu1.setText("World Settings");
 
         jMenuItem4.setText("Reset Colors and Sizes");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -189,7 +183,27 @@ public class MyWorldWindow extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
+        jMenuItem5.setText("Reset Settings");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem5);
+
         jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Animation Settings");
+
+        jMenuItem6.setText("Change Speed");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem6);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -221,7 +235,7 @@ public class MyWorldWindow extends javax.swing.JFrame {
             @Override
             public void run() {
                 while(running) {
-                    w.run(30);
+                    w.run(10*animationSpeed);
                     repaint();
                     try {
                         Thread.sleep(100);
@@ -272,6 +286,11 @@ public class MyWorldWindow extends javax.swing.JFrame {
         initWorld();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+        animationSpeed = Integer.parseInt(JOptionPane.showInputDialog("Height:",animationSpeed));
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -318,12 +337,14 @@ public class MyWorldWindow extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JProgressBar jProgressBar1;
     // End of variables declaration//GEN-END:variables
