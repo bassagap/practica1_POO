@@ -14,11 +14,11 @@ public class World {
     Agent[] agents;
     
     // Constructor:
-    public World() {
-        width = 800;
-        height = 600;
+    public World(int nagents,int w,int h) {
+        width = w;
+        height = h;
         screenMargin = 30;
-        numAgents = 10;
+        numAgents = nagents;
         agents = new Agent[numAgents];
         for ( int i = 0; i < numAgents; i++){
             double randRad = 5 + Math.random()*(this.screenMargin/2); 
