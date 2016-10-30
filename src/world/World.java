@@ -12,6 +12,8 @@ import java.util.Random;
 public class World {
     private int width, height, screenMargin, numAgents; 
     Agent[] agents;
+    
+    // Constructor:
     public World() {
         width = 800;
         height = 600;
@@ -23,6 +25,8 @@ public class World {
             this.agents[i] = new Agent(this.randomPointInsideWorld(),this.randomPointInsideWorld(), randRad, 10);
         };
     }
+    
+    //Public methods 
     public int getW() {
         return this.width;
     }
@@ -34,11 +38,7 @@ public class World {
     }
     public Agent getAgent(int i){
         return this.agents[i]; 
-    }
-    public Vec2D randomPointInsideWorld() {
-        Random random = new Random();
-        return new Vec2D(random.nextInt(width-screenMargin*2)+screenMargin,random.nextInt(height-screenMargin*2)+screenMargin); 
-    }
+    }   
     public void processCollisions(){
         for(Agent a:agents) {
             for(Agent b:agents) {
@@ -51,11 +51,20 @@ public class World {
                     double angle = (av.angle(bv)+bv.angle(bv))/2;
                     av.rotate(aAngleCoeff*(angle*aRadiusCoeff+180));
                     bv.rotate((-1*aAngleCoeff)*(aRadiusCoeff+180));
+                    a.setCollided(true); 
+                    b.setCollided(true);
                 }
+                a.setCollided(false); 
+                b.setCollided(false);
             }
         }
     }
-    public void update() {
+    public void run(int steps) {
+        for(int i=0;i<steps;i++) update();
+    }
+    
+    //Methods only used on World class and that will be by definition only used by World class therefore private. 
+    private void update() {
         for(Agent a:agents) {
             a.update();
             // Reset Objective if met
@@ -63,7 +72,9 @@ public class World {
             a.getDir().rotateInDirectionOf(a.getDirToObj()); // Turn agent towards Objective
         }
     }
-    public void run(int steps) {
-        for(int i=0;i<steps;i++) update();
+    private Vec2D randomPointInsideWorld() {
+        Random random = new Random();
+        return new Vec2D(random.nextInt(width-screenMargin/2)+screenMargin,random.nextInt(height-screenMargin/2)+screenMargin); 
     }
+    
 }
