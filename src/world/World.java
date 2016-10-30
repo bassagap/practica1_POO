@@ -45,8 +45,12 @@ public class World {
                 if(a.collisionWith(b)) {
                     Vec2D av = a.getDir();
                     Vec2D bv = b.getDir();
-                    a.getDir().rotate(av.angle(bv));
-                    b.getDir().rotate(bv.angle(av));
+                    // Rotation
+                    int aAngleCoeff = (av.angle(bv)>bv.angle(bv))?-1:1;
+                    double aRadiusCoeff = (a.getRadius()/b.getRadius());
+                    double angle = (av.angle(bv)+bv.angle(bv))/2;
+                    av.rotate(aAngleCoeff*(angle*aRadiusCoeff+180));
+                    bv.rotate((-1*aAngleCoeff)*(aRadiusCoeff+180));
                 }
             }
         }
@@ -55,18 +59,11 @@ public class World {
         for(Agent a:agents) {
             a.update();
             // Reset Objective if met
-            if(a.objReached()){
-                a.setObj(this.randomPointInsideWorld());
-                a.getDir().rotateInDirectionOf(a.getDirToObj()); // Turn agent towards Objective
-            }
+            if(a.objReached()) a.setObj(this.randomPointInsideWorld());
+            a.getDir().rotateInDirectionOf(a.getDirToObj()); // Turn agent towards Objective
         }
     }
-    
     public void run(int steps) {
-           for(int i=0;i<steps;i++) update();
+        for(int i=0;i<steps;i++) update();
     }
 }
-
-
-
-

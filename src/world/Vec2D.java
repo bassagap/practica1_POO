@@ -38,6 +38,7 @@ public class Vec2D {
    }
 
    public double angle( Vec2D v ) {
+
        return Math.atan2( v.getY(), v.getX() ) - Math.atan2( y , x );
    }
    
