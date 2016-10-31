@@ -61,18 +61,18 @@ public class World {
 <span class="fc" id="L61">        return coll;</span>
     }
     public void run(int steps) {
-<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        for(int i=0;i&lt;steps;i++) update();</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        for(int i=0;i&lt;steps;i++) update();</span>
 <span class="fc" id="L65">    }</span>
     
     //Methods only used on World class and that will be by definition only used by World class therefore private. 
     private void update() {
-<span class="nc bnc" id="L69" title="All 2 branches missed.">        for(Agent a:agents) {</span>
-<span class="nc" id="L70">            a.update();</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        for(Agent a:agents) {</span>
+<span class="fc" id="L70">            a.update();</span>
             // Reset Objective if met
-<span class="nc bnc" id="L72" title="All 2 branches missed.">            if(a.objReached()) a.setObj(this.randomPointInsideWorld());</span>
-<span class="nc" id="L73">            a.getDir().rotateInDirectionOf(a.getDirToObj()); // Turn agent towards Objective</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">            if(a.objReached()) a.setObj(this.randomPointInsideWorld());</span>
+<span class="fc" id="L73">            a.getDir().rotateInDirectionOf(a.getDirToObj()); // Turn agent towards Objective</span>
         }
-<span class="nc" id="L75">    }</span>
+<span class="fc" id="L75">    }</span>
     private Vec2D randomPointInsideWorld() {
 <span class="fc" id="L77">        Random random = new Random();</span>
 <span class="fc" id="L78">        return new Vec2D(random.nextInt(width-screenMargin/2)+screenMargin,random.nextInt(height-screenMargin/2)+screenMargin); </span>

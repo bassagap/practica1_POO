@@ -93,9 +93,12 @@ public class WorldTest {
     @Test
     public void testProcessCollisions() {
         System.out.println("processCollisions");
-        World instance = new World(10, 600, 200);
-        instance.processCollisions();
-
+        World fakeWorld = new World(10, 600, 200);
+        Agent fakeAgent = fakeWorld.getAgent(0);
+        Vec2D fakeVector = fakeAgent.getDir();
+        fakeWorld.processCollisions();
+        Vec2D expVector = fakeWorld.getAgent(0).getDir();
+        assertNotEquals(fakeVector.getX(), expVector.getY()); 
     }
 
     /**
@@ -104,11 +107,28 @@ public class WorldTest {
     @Test
     public void testRun() {
         System.out.println("run");
+        int steps = 10;
+        World fakeWorld = new World(10, 600, 200);
+        Vec2D initVector = new Vec2D(2, 2);
+        fakeWorld.getAgent(0).setPos(new Vec2D(2, 2));
+        fakeWorld.getAgent(0).setObj(new Vec2D(2, 2));
+        
+        //fakeWorld.getAgent(0).setPos(new Vec2D(1,33));
+        fakeWorld.run(steps);
+        Vec2D expVector = fakeWorld.getAgent(0).getObj();
+        assertNotEquals(expVector.getX(), initVector.getX()); 
+
+    }
+        @Test
+        public void testNotRun() {
+        System.out.println("run");
         int steps = 0;
-        World instance = new World(10, 600, 200);
-        instance.run(steps);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        World fakeWorld = new World(10, 600, 200);
+        Vec2D fakeVector = fakeWorld.getAgent(0).getPos();
+        fakeWorld.run(steps);
+        Vec2D expVector = fakeWorld.getAgent(0).getPos();
+        assertEquals(fakeVector.getX(), expVector.getX(), 0.0); 
+
     }
     
 }

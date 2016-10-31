@@ -169,12 +169,7 @@ public class AgentTest {
     /**
      * Test of update method, of class Agent.
      */
-    @Test
-    public void testUpdate() {
-        System.out.println("update");
-        
 
-    }
 
     /**
      * Test of collisionWith method, of class Agent.
@@ -210,6 +205,20 @@ public class AgentTest {
         Agent fakeAgent = new Agent(new Vec2D(300,300), new Vec2D(2,2),30.5, 2);
         String expResult = "Agent { id: " + 2 + ", position: {" + new Vec2D(300,300).getX() + "," + new Vec2D(300,300).getY() + "}, objective: {" + new Vec2D(2,2).getX() + "," + new Vec2D(2,2).getY() + "}";  ;
         String result = fakeAgent.toString();
+        assertEquals(expResult, result);
+
+    }
+    
+     /* 
+    Test of getCollided method, of class Agent.
+     */
+    @Test
+    public void testGetCollided() {
+        System.out.println("toString");
+        boolean expResult = true; 
+        Agent fakeAgent1 = new Agent(new Vec2D(300,300), new Vec2D(2,2),30.5, 2);
+        fakeAgent1.setCollided(true); 
+        boolean result = fakeAgent1.getCollided(); 
         assertEquals(expResult, result);
 
     }
