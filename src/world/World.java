@@ -24,6 +24,7 @@ public class World {
         for ( int i = 0; i < numAgents; i++){
             double randRad = 5 + Math.random()*(this.screenMargin/2); 
             this.agents[i] = new Agent(this.randomPointInsideWorld(),this.randomPointInsideWorld(), randRad, i);
+            this.agents[i].dirToObj();
         };
     }
     
@@ -42,7 +43,6 @@ public class World {
     }
     public int processCollisions(){
         int coll = 0;
-        Boolean redirect = false;
         for(Agent a:agents) {
             for(Agent b:agents) {
                 Boolean itCollides = a.collisionWith(b);
@@ -60,10 +60,7 @@ public class World {
                     bv.rotate((-1*aAngleCoeff)*(aRadiusCoeff+180));
                     
                     coll++;
-                    
-                    if(!redirect) redirect = (!a.isLessThanXPixelsAway(b,50));
                 }
-                if(redirect) a.getDir().rotateInDirectionOf(a.getDirToObj()); // Turn agent towards Objective
                 if(!itCollides && inCollision) a.setCollided(false);
             }
         }
@@ -80,8 +77,9 @@ public class World {
             // Reset Objective if met
             if(a.objReached()) {
                 a.setObj(this.randomPointInsideWorld());
-                a.getDir().rotateInDirectionOf(a.getDirToObj()); // Turn agent towards Objective
-                
+            }
+            for(Agent b:agents) {
+                if(!a.isLessThanXPixelsAway(b, 20)) a.dirToObj();
             }
         }
     }

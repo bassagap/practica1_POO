@@ -39,7 +39,7 @@ public class Agent {
         this.speed = new Vec2D (1,1);
         this.weight = this.radius * 2;
         this.maxSpeed = new Vec2D (2,2);
-
+        this.dir = new Vec2D (0,0);
     }
     // Methods:
     /**
@@ -131,7 +131,8 @@ public class Agent {
     /**
      *
      */
-    public void update() {    
+    public void update() {
+        System.out.println(this.dir.getX());
         this.pos.setX(this.pos.getX() + this.speed.getX()*this.dir.getX());
         this.pos.setY(this.pos.getY() + this.speed.getY()*this.dir.getY());
     }
