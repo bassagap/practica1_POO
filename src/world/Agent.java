@@ -39,7 +39,6 @@ public class Agent {
         this.speed = new Vec2D (1,1);
         this.weight = this.radius * 2;
         this.maxSpeed = new Vec2D (2,2);
-        this.dir = this.getDirToObj();
 
     }
     // Methods:
@@ -87,7 +86,9 @@ public class Agent {
         vector.normalize();
         return vector; 
     }
-    
+    public void dirToObj() {
+        this.getDir().rotateInDirectionOf(this.getDirToObj());
+    }
     public boolean getCollided(){
         return this.collided; 
     }
