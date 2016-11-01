@@ -48,6 +48,9 @@ public class Agent {
      *
      * @return
      */
+    public int getID() {
+        return this.id;
+    }
     public double getRadius() {
         return this.radius;
     }
@@ -142,9 +145,9 @@ public class Agent {
     public Boolean collisionWith(Agent a) {
         Boolean collided = false;
         double sum = this.radius + a.getRadius();  
-        if(this.pos.dist(a.pos) <= sum){
+        if(this.pos.dist(a.pos) <= sum && !this.getCollided()) {
             collided = true;
-        }    
+        }
         return collided;
     }
 

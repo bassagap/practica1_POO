@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package world;
+import java.util.HashMap;
 import java.util.Random;
 /**
  *
@@ -12,6 +13,7 @@ import java.util.Random;
 public class World {
     private int width, height, screenMargin, numAgents; 
     Agent[] agents;
+    UnorderedHashMap<Integer,Integer> collisions;
     
     // Constructor:
     public World(int nagents,int w,int h) {
@@ -20,9 +22,10 @@ public class World {
         screenMargin = 30;
         numAgents = nagents;
         agents = new Agent[numAgents];
+        collisions = new UnorderedHashMap<Integer,Integer>();
         for ( int i = 0; i < numAgents; i++){
             double randRad = 5 + Math.random()*(this.screenMargin/2); 
-            this.agents[i] = new Agent(this.randomPointInsideWorld(),this.randomPointInsideWorld(), randRad, 10);
+            this.agents[i] = new Agent(this.randomPointInsideWorld(),this.randomPointInsideWorld(), randRad, i);
         };
     }
     
@@ -40,11 +43,10 @@ public class World {
         return this.agents[i]; 
     }
     public int processCollisions(){
-        int coll = 0;
         for(Agent a:agents) {
             for(Agent b:agents) {
-                if(a.collisionWith(b)) {
-                    coll++;
+                if(a.collisionWith(b) && collisions.containsPair(a.getID(), b.getID())) {
+                    collisions.put(a.getID(), b.getID());
                     Vec2D av = a.getDir();
                     Vec2D bv = b.getDir();
                     // Rotation
@@ -53,12 +55,10 @@ public class World {
                     double angle = (av.angle(bv)+bv.angle(bv))/2;
                     av.rotate(aAngleCoeff*(angle*aRadiusCoeff+180));
                     bv.rotate((-1*aAngleCoeff)*(aRadiusCoeff+180));
-                    a.setCollided(true);
-                    b.setCollided(true);
                 }
             }
         }
-        return coll;
+        return collisions.values().size();
     }
     public void run(int steps) {
         for(int i=0;i<steps;i++) update();
