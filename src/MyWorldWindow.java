@@ -267,8 +267,8 @@ public class MyWorldWindow extends javax.swing.JFrame {
             public void run() {
                 while(running) {
                     w.run(10*animationSpeed);
-                    repaint();
                     collisionsBar.setValue(w.processCollisions());
+                    repaint();
                     try {
                         Thread.sleep(1000/animationLatencyRate);
                     } catch (InterruptedException ex) {
@@ -284,8 +284,8 @@ public class MyWorldWindow extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         w.run(50);
-        repaint();
         collisionsBar.setValue(w.processCollisions());
+        repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed

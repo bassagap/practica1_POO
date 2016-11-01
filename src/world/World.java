@@ -53,7 +53,7 @@ public class World {
                     double angle = (av.angle(bv)+bv.angle(bv))/2;
                     av.rotate(aAngleCoeff*(angle*aRadiusCoeff+180));
                     bv.rotate((-1*aAngleCoeff)*(aRadiusCoeff+180));
-                    a.setCollided(true); 
+                    a.setCollided(true);
                     b.setCollided(true);
                 }
             }
