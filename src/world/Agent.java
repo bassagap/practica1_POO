@@ -20,8 +20,7 @@ public class Agent {
     private double radius;
     private double weight;
     private int id;
-    private boolean collided = false; 
-    
+    private boolean collided = false;
 
     //Contructor
 
@@ -134,7 +133,6 @@ public class Agent {
     public void update() {    
         this.pos.setX(this.pos.getX() + this.speed.getX()*this.dir.getX());
         this.pos.setY(this.pos.getY() + this.speed.getY()*this.dir.getY());
-        
     }
 
     /**
@@ -142,10 +140,13 @@ public class Agent {
      * @param a
      * @return
      */
+    public Boolean isLessThanXPixelsAway(Agent a,int X) {
+        double sum = this.radius + a.getRadius() + X;  
+        return (this.pos.dist(a.pos) <= sum);
+    }
     public Boolean collisionWith(Agent a) {
         Boolean collided = false;
-        double sum = this.radius + a.getRadius();  
-        if(this.pos.dist(a.pos) <= sum && !this.getCollided()) {
+        if(isLessThanXPixelsAway(a,0) && !this.getCollided()) {
             collided = true;
         }
         return collided;

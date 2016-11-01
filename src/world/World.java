@@ -11,9 +11,8 @@ import java.util.Random;
  * @author u124308
  */
 public class World {
-    private int width, height, screenMargin, numAgents; 
+    private int width, height, screenMargin, numAgents,updateN=0; 
     Agent[] agents;
-    UnorderedHashMap<Integer,Integer> collisions;
     
     // Constructor:
     public World(int nagents,int w,int h) {
@@ -22,7 +21,6 @@ public class World {
         screenMargin = 30;
         numAgents = nagents;
         agents = new Agent[numAgents];
-        collisions = new UnorderedHashMap<Integer,Integer>();
         for ( int i = 0; i < numAgents; i++){
             double randRad = 5 + Math.random()*(this.screenMargin/2); 
             this.agents[i] = new Agent(this.randomPointInsideWorld(),this.randomPointInsideWorld(), randRad, i);
@@ -43,22 +41,33 @@ public class World {
         return this.agents[i]; 
     }
     public int processCollisions(){
+        int coll = 0;
+        Boolean redirect = false;
         for(Agent a:agents) {
             for(Agent b:agents) {
-                if(a.collisionWith(b) && collisions.containsPair(a.getID(), b.getID())) {
-                    collisions.put(a.getID(), b.getID());
+                Boolean itCollides = a.collisionWith(b);
+                Boolean inCollision = a.getCollided();
+                if(itCollides && !inCollision) {
+                    a.setCollided(true);
                     Vec2D av = a.getDir();
                     Vec2D bv = b.getDir();
+
                     // Rotation
                     int aAngleCoeff = (av.angle(bv)>bv.angle(bv))?-1:1;
                     double aRadiusCoeff = (a.getRadius()/b.getRadius());
                     double angle = (av.angle(bv)+bv.angle(bv))/2;
                     av.rotate(aAngleCoeff*(angle*aRadiusCoeff+180));
                     bv.rotate((-1*aAngleCoeff)*(aRadiusCoeff+180));
+                    
+                    coll++;
+                    
+                    if(!redirect) redirect = (!a.isLessThanXPixelsAway(b,50));
                 }
+                if(redirect) a.getDir().rotateInDirectionOf(a.getDirToObj()); // Turn agent towards Objective
+                if(!itCollides && inCollision) a.setCollided(false);
             }
         }
-        return collisions.values().size();
+        return coll/2;
     }
     public void run(int steps) {
         for(int i=0;i<steps;i++) update();
@@ -69,8 +78,11 @@ public class World {
         for(Agent a:agents) {
             a.update();
             // Reset Objective if met
-            if(a.objReached()) a.setObj(this.randomPointInsideWorld());
-            a.getDir().rotateInDirectionOf(a.getDirToObj()); // Turn agent towards Objective
+            if(a.objReached()) {
+                a.setObj(this.randomPointInsideWorld());
+                a.getDir().rotateInDirectionOf(a.getDirToObj()); // Turn agent towards Objective
+                
+            }
         }
     }
     private Vec2D randomPointInsideWorld() {
